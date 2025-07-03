@@ -1,93 +1,113 @@
-// Importa las dependencias necesarias
 import express from "express";
-import connection from "../configBD/ConfigBD.js";
+import pool from "../configBD/ConfigBD.js"; // Cambiamos a pool
 
-// Configura el enrutador de Express
 const router = express.Router();
 
-// Define las rutas de la API
+// Middleware para manejar conexiones
+const handleDB = async (operation) => {
+  let connection;
+  try {
+    connection = await pool.getConnection();
+    return await operation(connection);
+  } catch (error) {
+    console.error("Error en operación DB:", error);
+    throw error;
+  } finally {
+    if (connection) connection.release();
+  }
+};
 
+// Rutas
 router.get("/", async (req, res) => {
   try {
-    // Consulta todos los usuarios en la base de datos
-    const [rows] = await connection.execute("SELECT * FROM tbl_alumnos");
-    res.json(rows);
+    const alumnos = await handleDB(async (conn) => {
+      const [rows] = await conn.execute("SELECT * FROM tbl_alumnos");
+      return rows;
+    });
+    res.json(alumnos);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Error al consultar tbl_alumnos" });
+    res.status(500).json({ 
+      error: "Error al consultar alumnos",
+      details: error.message 
+    });
   }
 });
 
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    // Consulta todos los usuarios en la base de datos
-    const [rows] = await connection.execute(
-      "SELECT * FROM tbl_alumnos WHERE id = ?",
-      [id]
-    );
-    res.json(rows);
+    const [alumno] = await handleDB(async (conn) => {
+      const [rows] = await conn.execute(
+        "SELECT * FROM tbl_alumnos WHERE id = ?", 
+        [id]
+      );
+      return rows;
+    });
+    res.json(alumno);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Error al consultar tbl_alumnos" });
+    res.status(500).json({ 
+      error: "Error al consultar alumno",
+      details: error.message 
+    });
   }
 });
 
 router.post("/", async (req, res) => {
   try {
-    // Crea un nuevo usuario en la base de datos
-    const {
-      nombre_alumno,
-      email_alumno,
-      curso_alumno,
-      sexo_alumno,
-      habla_ingles,
-    } = req.body;
-    await connection.execute(
-      "INSERT INTO tbl_alumnos (nombre_alumno, email_alumno, curso_alumno, sexo_alumno, habla_ingles) VALUES (?, ?, ?, ?, ?)",
-      [nombre_alumno, email_alumno, curso_alumno, sexo_alumno, habla_ingles]
-    );
-    res.status(201).send("Alumno creado correctamente");
+    const { nombre_alumno, email_alumno, curso_alumno, sexo_alumno, habla_ingles } = req.body;
+    
+    await handleDB(async (conn) => {
+      await conn.execute(
+        "INSERT INTO tbl_alumnos (nombre_alumno, email_alumno, curso_alumno, sexo_alumno, habla_ingles) VALUES (?, ?, ?, ?, ?)",
+        [nombre_alumno, email_alumno, curso_alumno, sexo_alumno, habla_ingles]
+      );
+    });
+    
+    res.status(201).json({ message: "Alumno creado correctamente" });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Error al crear el alumno" });
+    res.status(500).json({ 
+      error: "Error al crear alumno",
+      details: error.message 
+    });
   }
 });
 
 router.put("/:id", async (req, res) => {
   try {
-    // id que viene en el req.params
     const { id } = req.params;
-    // Datos que vienenen el req.body
-    const {
-      nombre_alumno,
-      email_alumno,
-      curso_alumno,
-      sexo_alumno,
-      habla_ingles,
-    } = req.body;
-    await connection.execute(
-      "UPDATE tbl_alumnos SET nombre_alumno = ?, email_alumno = ? , curso_alumno = ?, sexo_alumno = ?, habla_ingles = ? WHERE id = ?",
-      [nombre_alumno, email_alumno, curso_alumno, sexo_alumno, habla_ingles, id]
-    );
-    res.status(200).send("Alumno actualizado correctamente");
+    const { nombre_alumno, email_alumno, curso_alumno, sexo_alumno, habla_ingles } = req.body;
+    
+    await handleDB(async (conn) => {
+      await conn.execute(
+        "UPDATE tbl_alumnos SET nombre_alumno = ?, email_alumno = ?, curso_alumno = ?, sexo_alumno = ?, habla_ingles = ? WHERE id = ?",
+        [nombre_alumno, email_alumno, curso_alumno, sexo_alumno, habla_ingles, id]
+      );
+    });
+    
+    res.json({ message: "Alumno actualizado correctamente" });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Error al actualizar alumno" });
+    res.status(500).json({ 
+      error: "Error al actualizar alumno",
+      details: error.message 
+    });
   }
 });
 
 router.delete("/:id", async (req, res) => {
   try {
-    // Elimina un usuario existente en la base de datos
     const { id } = req.params;
-    await connection.execute("DELETE FROM tbl_alumnos WHERE id = ?", [id]);
-    res.status(200).send("Alumno eliminado correctamente");
+    
+    await handleDB(async (conn) => {
+      await conn.execute("DELETE FROM tbl_alumnos WHERE id = ?", [id]);
+    });
+    
+    res.json({ message: "Alumno eliminado correctamente" });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Error al eliminar alumno" });
+    res.status(500).json({ 
+      error: "Error al eliminar alumno",
+      details: error.message 
+    });
   }
 });
 
-// Exporta el enrutador para su uso en otros archivos
 export default router;

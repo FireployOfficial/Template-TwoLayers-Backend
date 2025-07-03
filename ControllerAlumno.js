@@ -1,78 +1,96 @@
-import connection from "./configBD/ConfigBD.js";
+import pool from "./configBD/ConfigBD.js"; // Cambiamos a pool
 
 export const listaAlumnos = async () => {
+  let connection;
   try {
+    connection = await pool.getConnection();
     const [rows] = await connection.execute("SELECT * FROM tbl_alumnos");
     return rows;
   } catch (error) {
-    throw { status: 500, message: "Error al obtener estudiantes" };
+    throw { 
+      status: 500, 
+      message: "Error al obtener estudiantes",
+      details: error.message 
+    };
+  } finally {
+    if (connection) connection.release(); // Liberamos la conexión
   }
 };
 
-// Función para obtener un alumno por su ID
 export const obtenerAlumnoPorId = async (id) => {
+  let connection;
   try {
-    // Consulta el alumno en la base de datos por su ID
+    connection = await pool.getConnection();
     const [rows] = await connection.execute(
       "SELECT * FROM tbl_alumnos WHERE id = ?",
       [id]
     );
     return rows;
   } catch (error) {
-    // Maneja cualquier error que ocurra durante la consulta
-    throw { status: 500, message: "Error al obtener alumno por ID" };
+    throw { 
+      status: 500, 
+      message: "Error al obtener alumno por ID",
+      details: error.message
+    };
+  } finally {
+    if (connection) connection.release();
   }
 };
 
-// Función para crear un nuevo alumno
 export const crearAlumno = async (datosAlumno) => {
-  const {
-    nombre_alumno,
-    email_alumno,
-    curso_alumno,
-    sexo_alumno,
-    habla_ingles,
-  } = datosAlumno;
+  let connection;
+  const { nombre_alumno, email_alumno, curso_alumno, sexo_alumno, habla_ingles } = datosAlumno;
+  
   try {
-    // Realiza la inserción del nuevo alumno en la base de datos
+    connection = await pool.getConnection();
     await connection.execute(
       "INSERT INTO tbl_alumnos (nombre_alumno, email_alumno, curso_alumno, sexo_alumno, habla_ingles) VALUES (?, ?, ?, ?, ?)",
       [nombre_alumno, email_alumno, curso_alumno, sexo_alumno, habla_ingles]
     );
   } catch (error) {
-    // Maneja cualquier error que ocurra durante la inserción
-    throw { status: 500, message: "Error al crear el alumno" };
+    throw { 
+      status: 500, 
+      message: "Error al crear el alumno",
+      details: error.message
+    };
+  } finally {
+    if (connection) connection.release();
   }
 };
 
-// Función para actualizar un alumno
 export const actualizarAlumno = async (id, datosAlumno) => {
-  const {
-    nombre_alumno,
-    email_alumno,
-    curso_alumno,
-    sexo_alumno,
-    habla_ingles,
-  } = datosAlumno;
+  let connection;
+  const { nombre_alumno, email_alumno, curso_alumno, sexo_alumno, habla_ingles } = datosAlumno;
+  
   try {
-    // Realiza la actualización del alumno en la base de datos
+    connection = await pool.getConnection();
     await connection.execute(
       "UPDATE tbl_alumnos SET nombre_alumno = ?, email_alumno = ?, curso_alumno = ?, sexo_alumno = ?, habla_ingles = ? WHERE id = ?",
       [nombre_alumno, email_alumno, curso_alumno, sexo_alumno, habla_ingles, id]
     );
   } catch (error) {
-    // Maneja cualquier error que ocurra durante la actualización
-    throw { status: 500, message: "Error al actualizar el alumno" };
+    throw { 
+      status: 500, 
+      message: "Error al actualizar el alumno",
+      details: error.message
+    };
+  } finally {
+    if (connection) connection.release();
   }
 };
 
-// Función para eliminar un alumno por su ID
 export const eliminarAlumno = async (id) => {
+  let connection;
   try {
-    // Realiza la eliminación del alumno en la base de datos
+    connection = await pool.getConnection();
     await connection.execute("DELETE FROM tbl_alumnos WHERE id = ?", [id]);
   } catch (error) {
-    // Maneja cualquier error que ocurra durante la eliminación
-    throw { status: 500, message: "Error al eliminar el alumno" };
+    throw { 
+      status: 500, 
+      message: "Error al eliminar el alumno",
+      details: error.message
+    };
+  } finally {
+    if (connection) connection.release();
   }
 };
