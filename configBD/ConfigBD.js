@@ -1,10 +1,10 @@
 import mysql from "mysql2/promise";
 
 const connection = await mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "", // Coloca tu contraseña de MySQL
-  database: "bd_crud_react_php_mysql",
+  host: process.env.HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
