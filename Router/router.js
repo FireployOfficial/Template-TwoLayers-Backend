@@ -15,6 +15,7 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
+    console.log('THIIIIIS')
     const alumnos = await listaAlumnos();
     res.json(alumnos);
   } catch (error) {
