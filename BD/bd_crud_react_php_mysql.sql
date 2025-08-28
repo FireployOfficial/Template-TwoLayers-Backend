@@ -1,4 +1,3 @@
-
 CREATE TABLE `tbl_alumnos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_alumno` varchar(255) DEFAULT NULL,

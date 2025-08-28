@@ -1,30 +1,30 @@
-# Cómo crear un API REST usando Node.js, Express y MySQL 😱
+# 🚀 Desarrollo Full Stack: Creación, Gestión y Visualización de Datos con Node.js, Express, MySQL, API REST y ReactJS  
 
-#### Descubre cómo crear tu propia API REST con Node.js y Express de manera sencilla y eficiente. Aprende los fundamentos de los métodos HTTP y explora cómo desarrollar tus propias APIs de forma rápida y práctica. ¡Domina el poder de Node.js para construir aplicaciones web escalables y flexibles!
+Capa de Frontend de la plantilla dos capas para el servicio de despliegues de Fireploy
 
-#### Inicializar un proyecto en Node.js:
+---
 
-    npm init -y
+## 📌 Descripción  
 
-#### Instalar
+Este sistema integra:  
+- **Backend:** Node.js + Express → API RESTful para operaciones CRUD en MySQL.  
+- **Base de datos:** MySQL.  
+- **Frontend:** ReactJS → Interfaz interactiva conectada a la API.  
 
-    npm install express axios cors mysql2
+Una solución completa y escalable para construir aplicaciones web modernas.  
 
-#### Para instalar todas las dependencias del proyecto, solo basta ejecutar
+## 🎨 Resultado esperado  
 
-    npm install o npm i
+![Resultado final](https://raw.githubusercontent.com/urian121/imagenes-proyectos-github/master/crud-full-stack-con-node-y-react.png)  
 
-#### Para correr el proyecto, solo debes ejecutar el proyectar
+---
 
-    node --watch app.js ----> Opcion 1
-    node app.js    -----> Opcion 2
+## 📂 Estructura del proyecto  
 
-##### Nota
+- **api-rest-con-nodejs-express-mysql/** → Contiene la API REST en Node.js + Express (Backend).  
+- **frontend/** → Aplicación ReactJS (Frontend).  
 
-    Se debe definir en el package.json la propiedad   "type": "module", indica que el proyecto o archivo JavaScript está utilizando el módulo ECMAScript (ESM) en lugar del sistema de módulos CommonJS.
-    "type": "module", indica que usaremos la especificación de módulos ECMAScript, que es una forma más moderna y estándar de organizar y modularizar el código en JavaScript.
-
-#####
+---
 
 ## Lista de Endpoint API
 
@@ -95,11 +95,12 @@
 
     👉 http://127.0.0.1:3000/alumnos/15
 
-### Expresiones de Gratitud 🎁
 
-    Comenta a otros sobre este proyecto 📢
-    Invita una cerveza 🍺 o un café ☕
-    Paypal iamdeveloper86@gmail.com
-    Da las gracias públicamente 🤓.
+---
 
-## No olvides SUSCRIBIRTE 👍
+## 🙌 Créditos  
+
+Este proyecto es un **fork** del trabajo original de [urian121](https://github.com/urian121).  
+Los créditos corresponden al autor original; este repositorio busca fines de **aprendizaje, personalización y mejora** sobre su propuesta.  
+
+
