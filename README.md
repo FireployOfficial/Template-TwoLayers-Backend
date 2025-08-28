@@ -1,28 +1,29 @@
-# 🚀 Desarrollo Full Stack: Creación, Gestión y Visualización de Datos con Node.js, Express, MySQL, API REST y ReactJS  
+# 🚀 Desarrollo Full Stack: Creación, Gestión y Visualización de Datos con Node.js, Express, MySQL, API REST y ReactJS
 
-Capa de Frontend de la plantilla dos capas para el servicio de despliegues de Fireploy
-
----
-
-## 📌 Descripción  
-
-Este sistema integra:  
-- **Backend:** Node.js + Express → API RESTful para operaciones CRUD en MySQL.  
-- **Base de datos:** MySQL.  
-- **Frontend:** ReactJS → Interfaz interactiva conectada a la API.  
-
-Una solución completa y escalable para construir aplicaciones web modernas.  
-
-## 🎨 Resultado esperado  
-
-![Resultado final](https://raw.githubusercontent.com/urian121/imagenes-proyectos-github/master/crud-full-stack-con-node-y-react.png)  
+Capa de Backend de la plantilla dos capas para el servicio de despliegues de Fireploy
 
 ---
 
-## 📂 Estructura del proyecto  
+## 📌 Descripción
 
-- **api-rest-con-nodejs-express-mysql/** → Contiene la API REST en Node.js + Express (Backend).  
-- **frontend/** → Aplicación ReactJS (Frontend).  
+Este sistema integra:
+
+- **Backend:** Node.js + Express → API RESTful para operaciones CRUD en MySQL.
+- **Base de datos:** MySQL.
+- **Frontend:** ReactJS → Interfaz interactiva conectada a la API.
+
+Una solución completa y escalable para construir aplicaciones web modernas.
+
+## 🎨 Resultado esperado
+
+![Resultado final](https://raw.githubusercontent.com/urian121/imagenes-proyectos-github/master/crud-full-stack-con-node-y-react.png)
+
+---
+
+## 📂 Estructura del proyecto
+
+- **api-rest-con-nodejs-express-mysql/** → Contiene la API REST en Node.js + Express (Backend).
+- **frontend/** → Aplicación ReactJS (Frontend).
 
 ---
 
@@ -95,12 +96,10 @@ Una solución completa y escalable para construir aplicaciones web modernas.
 
     👉 http://127.0.0.1:3000/alumnos/15
 
-
 ---
 
-## 🙌 Créditos  
+## 🙌 Créditos
 
-Este proyecto es un **fork** del trabajo original de [urian121](https://github.com/urian121).  
-Los créditos corresponden al autor original; este repositorio busca fines de **aprendizaje, personalización y mejora** sobre su propuesta.  
-
-
+Este proyecto es un **fork** del trabajo original de [urian121](https://github.com/urian121).
+Repositorio original: [Full-Stack-CRUD-con-NodeJS-Express-MySQL-API-Rest-y-ReactJS](https://github.com/urian121/Full-Stack-CRUD-con-NodeJS-Express-MySQL-API-Rest-y-ReactJS).
+Los créditos corresponden al autor original; este repositorio busca fines de **aprendizaje, personalización y mejora** sobre su propuesta.
